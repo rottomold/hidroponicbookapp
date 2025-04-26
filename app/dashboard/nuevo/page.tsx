@@ -42,7 +42,8 @@ export default function NuevoRegistro() {
   const [fechaActual, setFechaActual] = useState('');
   const [temperaturaAmbiente, setTemperaturaAmbiente] = useState<number | null>(null);
   const [formData, setFormData] = useState<Record<FormField, string>>(initialFormData);
-  const [nutrientesAñadidos, setNutrientesAñadidos] = useState<boolean | null>(null); // nuevo estado
+  const [nutrientesAñadidos, setNutrientesAñadidos] = useState<boolean>(false); // "No" activo por defecto
+  const [mantenimientoRealizado, setMantenimientoRealizado] = useState<boolean>(false); // "No" activo por defecto
 
   useEffect(() => {
     const ahora = new Date();
@@ -83,10 +84,12 @@ export default function NuevoRegistro() {
       return;
     }
 
+    // Guardar "no" si los valores de nutrientesAñadidos o mantenimientoRealizado son false
     const { error } = await supabase.from('registros').insert([
       {
         ...formData,
-        nutrientes: nutrientesAñadidos ? formData.nutrientes : '', // Solo guardar si dijo "sí"
+        nutrientes: nutrientesAñadidos ? formData.nutrientes : 'no',  // Guardar "no" si no se añadió
+        mantenimiento: mantenimientoRealizado ? formData.mantenimiento : 'no', // Guardar "no" si no se hizo mantenimiento
         temperatura_agua: parseFloat(formData.temperatura_agua) || null,
         ph: parseFloat(formData.ph) || null,
         ec: parseFloat(formData.ec) || null,
@@ -115,8 +118,6 @@ export default function NuevoRegistro() {
     { label: 'Estado de raíces', name: 'estado_raices', type: 'text' },
     { label: 'Plagas detectadas', name: 'plagas', type: 'text' },
     { label: 'Flujo del sistema', name: 'flujo_sistema', type: 'text' },
-    { label: 'Mantenimiento realizado', name: 'mantenimiento', type: 'text' },
-    { label: 'Anotaciones', name: 'anotaciones', type: 'text' }
   ];
 
   return (
@@ -153,7 +154,7 @@ export default function NuevoRegistro() {
           </div>
         ))}
 
-        {/* Bloque especial para "Nutrientes añadidos" */}
+        {/* Bloque especial para "¿Se añadieron nutrientes?" */}
         <div className="flex flex-col">
           <label className="font-semibold mb-1 text-black">¿Se añadieron nutrientes?</label>
           <div className="flex gap-4 mb-2">
@@ -184,6 +185,54 @@ export default function NuevoRegistro() {
               className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           )}
+        </div>
+
+        {/* Bloque especial para "¿Se realizó mantenimiento?" */}
+        <div className="flex flex-col">
+          <label className="font-semibold mb-1 text-black">¿Se realizó mantenimiento?</label>
+          <div className="flex gap-4 mb-2">
+            <button
+              type="button"
+              className={`py-2 px-4 rounded ${mantenimientoRealizado === true ? 'bg-green-500 text-white' : 'bg-gray-300'}`}
+              onClick={() => setMantenimientoRealizado(true)}
+            >
+              Sí
+            </button>
+            <button
+              type="button"
+              className={`py-2 px-4 rounded ${mantenimientoRealizado === false ? 'bg-red-500 text-white' : 'bg-gray-300'}`}
+              onClick={() => setMantenimientoRealizado(false)}
+            >
+              No
+            </button>
+          </div>
+
+          {mantenimientoRealizado && (
+            <input
+              type="text"
+              name="mantenimiento"
+              id="mantenimiento"
+              value={formData.mantenimiento}
+              onChange={handleChange}
+              placeholder="Describe el mantenimiento realizado"
+              className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
+          )}
+        </div>
+
+        {/* Bloque para las "Anotaciones" */}
+        <div className="flex flex-col">
+          <label htmlFor="anotaciones" className="font-semibold mb-1 text-black">
+            Anotaciones
+          </label>
+          <textarea
+            name="anotaciones"
+            id="anotaciones"
+            value={formData.anotaciones}
+            onChange={handleChange}
+            placeholder="Escribe tus anotaciones aquí"
+            className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+          />
         </div>
 
         <button

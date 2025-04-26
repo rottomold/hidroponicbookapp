@@ -87,7 +87,6 @@ export default function DashboardPage() {
           + Nuevo Registro
         </button>
 
-        {/* Aquí se ajusta la ruta de navegación al historial */}
         <button
           onClick={() => router.push('/dashboard/historial')}
           className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
@@ -95,6 +94,7 @@ export default function DashboardPage() {
           Ver Historial
         </button>
 
+        {/* Botón para redirigir a la página de gráfico de pH */}
         <button
           onClick={() => router.push('/dashboard/grafico-ph')}
           className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
