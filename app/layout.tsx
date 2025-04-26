@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "react-hot-toast"; // Importa Toaster
+import { Toaster } from "react-hot-toast";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister"; // 👈 Importa aquí
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,15 +26,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="manifest" href="/manifest.json" />
-      <meta name="theme-color" content="#4CAF50" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#4CAF50" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ServiceWorkerRegister /> {/* 👈 Aquí */}
         {children}
-        {/* Añade Toaster al final */}
         <Toaster position="top-right" />
       </body>
     </html>
