@@ -76,7 +76,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center py-8">
-      <h1 className="text-3xl font-bold mb-2 text-zinc-900">Control Cultivo Hidropónico</h1>
+      <h1 className="text-3xl text-center font-bold mb-2 text-zinc-900">Control Cultivo Hidropónico</h1>
       <p className="mb-8 text-gray-600">Registro y monitoreo de datos.</p>
 
       <div className="space-y-4 w-full max-w-xs">
