@@ -33,13 +33,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-80">
-        <h1 className="text-2xl font-bold mb-6 text-center">Hidroponic Book</h1>
+    <div className="flex items-center justify-center min-h-screen bg-white">
+      <div className="p-8 w-80">
+        <h1 className="text-2xl font-bold mb-6 text-center text-zinc-900 uppercase">Hidroponic Book</h1>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm font-medium text-zinc-900">
               Email:
             </label>
             <input
@@ -49,12 +49,12 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 block w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="mt-1 block w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-zinc-900"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-sm font-medium text-zinc-900">
               Contraseña:
             </label>
             <input
@@ -64,7 +64,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1 block w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="mt-1 block w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-zinc-900"
             />
           </div>
 
@@ -75,7 +75,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition disabled:opacity-50"
+            className="w-full bg-zinc-800 text-white py-2 rounded hover:bg-zinc-950 transition disabled:opacity-50"
           >
             {loading ? 'Cargando...' : 'Iniciar Sesión'}
           </button>

@@ -45,13 +45,13 @@ export default function HistorialPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">
-      <h1 className="text-3xl font-bold mb-2 text-gray-900">Historial de Registros</h1>
+    <div className="min-h-screen bg-white flex flex-col items-center py-8">
+      <h1 className="text-3xl font-bold mb-2 text-zinc-800">Historial de Registros</h1>
       <p className="mb-8 text-gray-800">Lista de todos los registros almacenados.</p>
 
       <button
         onClick={handleBackToDashboard}
-        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded mb-4"
+        className="w-xs bg-zinc-800 hover:bg-zinc-900 text-white py-2 rounded mb-4"
       >
         Volver al Dashboard
       </button>

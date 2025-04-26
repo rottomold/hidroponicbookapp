@@ -121,14 +121,14 @@ export default function NuevoRegistro() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start p-6 bg-gray-100 text-black">
+    <div className="min-h-screen flex flex-col items-center justify-start p-6 bg-white text-black">
       <h1 className="text-3xl font-bold mb-4 text-black">Nuevo Registro</h1>
 
       <button
         onClick={() => router.push('/dashboard')}
-        className="mb-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="mb-6 bg-zinc-700 hover:bg-zinc-900 text-white font-bold py-2 px-4 rounded w-xs"
       >
-        Volver
+        Volver al Dashboard
       </button>
 
       <div className="flex gap-6 mb-6 text-lg font-semibold">

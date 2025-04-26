@@ -84,8 +84,8 @@ export default function GraficoPhPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">
-      <h1 className="text-3xl font-bold mb-2">Gráfico de pH</h1>
+    <div className="min-h-screen bg-white flex flex-col items-center py-8">
+      <h1 className="text-3xl font-bold mb-2 text-zinc-900">Gráfico de pH</h1>
       <p className="mb-8 text-gray-600">Visualización de los valores de pH del sistema de cultivo hidropónico.</p>
 
       <div className="w-full max-w-6xl">
@@ -96,7 +96,7 @@ export default function GraficoPhPage() {
       <div className="mt-8">
         <button
           onClick={handleGoBack}
-          className="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded"
+          className="w-xs bg-zinc-800 hover:bg-zinc-900 font-bold text-white py-2 rounded"
         >
           Volver
         </button>

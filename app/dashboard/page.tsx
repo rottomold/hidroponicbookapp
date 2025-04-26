@@ -75,21 +75,21 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">
-      <h1 className="text-3xl font-bold mb-2">Control Cultivo Hidropónico</h1>
+    <div className="min-h-screen bg-white flex flex-col items-center py-8">
+      <h1 className="text-3xl font-bold mb-2 text-zinc-900">Control Cultivo Hidropónico</h1>
       <p className="mb-8 text-gray-600">Registro y monitoreo de datos.</p>
 
       <div className="space-y-4 w-full max-w-xs">
         <button
           onClick={handleNuevoRegistro}
-          className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
+          className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded font-bold"
         >
-          + Nuevo Registro
+          Nuevo Registro
         </button>
 
         <button
           onClick={() => router.push('/dashboard/historial')}
-          className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
+          className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded font-bold"
         >
           Ver Historial
         </button>
@@ -97,14 +97,14 @@ export default function DashboardPage() {
         {/* Botón para redirigir a la página de gráfico de pH */}
         <button
           onClick={() => router.push('/dashboard/grafico-ph')}
-          className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
+          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded"
         >
           Gráfico pH
         </button>
 
         <button
           onClick={() => router.push('/dashboard/grafico-ec')}
-          className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
+          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded"
         >
           Gráfico EC
         </button>
@@ -112,14 +112,14 @@ export default function DashboardPage() {
         {/* Botón de exportación a CSV */}
         <button
           onClick={handleExportCSV}
-          className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
+          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded"
         >
           Exportar a CSV
         </button>
 
         <button
           onClick={handleLogout}
-          className="w-full bg-gray-800 hover:bg-gray-900 text-white py-2 rounded"
+          className="w-full bg-zinc-800 hover:bg-zinc-900 text-white py-2 rounded"
         >
           Cerrar Sesión
         </button>
