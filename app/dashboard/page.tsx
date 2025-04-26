@@ -19,7 +19,6 @@ interface Registro {
   flujo_sistema: string;
   mantenimiento: string;
   anotaciones: string;
-  // Agrega cualquier otro campo que exista en tu base de datos
 }
 
 export default function DashboardPage() {
@@ -88,6 +87,7 @@ export default function DashboardPage() {
           + Nuevo Registro
         </button>
 
+        {/* Aquí se ajusta la ruta de navegación al historial */}
         <button
           onClick={() => router.push('/dashboard/historial')}
           className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
