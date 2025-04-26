@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import toast from 'react-hot-toast';  // Importa toast
+import toast from 'react-hot-toast';
 
 type FormField =
   | 'temperatura_agua'
@@ -23,13 +23,13 @@ const initialFormData: Record<FormField, string> = {
   temperatura_agua: '',
   ph: '',
   ec: '',
-  nivel_agua: '',
+  nivel_agua: '0',  // Inicializa el valor como un string (por el manejo en el estado)
   altura_plantas: '',
   color_planta: '',
   estado_raices: '',
   plagas: '',
   nutrientes: '',
-  flujo_sistema: '',
+  flujo_sistema: 'Óptimo',
   mantenimiento: '',
   anotaciones: ''
 };
@@ -42,8 +42,10 @@ export default function NuevoRegistro() {
   const [fechaActual, setFechaActual] = useState('');
   const [temperaturaAmbiente, setTemperaturaAmbiente] = useState<number | null>(null);
   const [formData, setFormData] = useState<Record<FormField, string>>(initialFormData);
-  const [nutrientesAñadidos, setNutrientesAñadidos] = useState<boolean>(false); // "No" activo por defecto
-  const [mantenimientoRealizado, setMantenimientoRealizado] = useState<boolean>(false); // "No" activo por defecto
+  const [nutrientesAñadidos, setNutrientesAñadidos] = useState<boolean>(false);
+  const [mantenimientoRealizado, setMantenimientoRealizado] = useState<boolean>(false);
+  const [plagasDetectadas, setPlagasDetectadas] = useState<boolean>(false);
+  const [flujoSistema, setFlujoSistema] = useState<string>('Óptimo');
 
   useEffect(() => {
     const ahora = new Date();
@@ -84,18 +86,19 @@ export default function NuevoRegistro() {
       return;
     }
 
-    // Guardar "no" si los valores de nutrientesAñadidos o mantenimientoRealizado son false
     const { error } = await supabase.from('registros').insert([
       {
         ...formData,
-        nutrientes: nutrientesAñadidos ? formData.nutrientes : 'no',  // Guardar "no" si no se añadió
-        mantenimiento: mantenimientoRealizado ? formData.mantenimiento : 'no', // Guardar "no" si no se hizo mantenimiento
+        nutrientes: nutrientesAñadidos ? formData.nutrientes : 'no',
+        mantenimiento: mantenimientoRealizado ? formData.mantenimiento : 'no',
+        plagas: plagasDetectadas ? formData.plagas : 'no',
         temperatura_agua: parseFloat(formData.temperatura_agua) || null,
         ph: parseFloat(formData.ph) || null,
         ec: parseFloat(formData.ec) || null,
         nivel_agua: parseFloat(formData.nivel_agua) || null,
         altura_plantas: parseFloat(formData.altura_plantas) || null,
-        temperatura_ambiente: temperaturaAmbiente
+        temperatura_ambiente: temperaturaAmbiente,
+        flujo_sistema: flujoSistema,
       }
     ]);
 
@@ -112,12 +115,9 @@ export default function NuevoRegistro() {
     { label: 'Temperatura del agua', name: 'temperatura_agua', type: 'number' },
     { label: 'pH', name: 'ph', type: 'number' },
     { label: 'EC', name: 'ec', type: 'number' },
-    { label: 'Nivel de agua', name: 'nivel_agua', type: 'number' },
     { label: 'Altura promedio plantas', name: 'altura_plantas', type: 'number' },
     { label: 'Color de planta', name: 'color_planta', type: 'text' },
     { label: 'Estado de raíces', name: 'estado_raices', type: 'text' },
-    { label: 'Plagas detectadas', name: 'plagas', type: 'text' },
-    { label: 'Flujo del sistema', name: 'flujo_sistema', type: 'text' },
   ];
 
   return (
@@ -137,10 +137,10 @@ export default function NuevoRegistro() {
         <span>{temperaturaAmbiente !== null ? `${temperaturaAmbiente} °C` : 'Cargando...'}</span>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md gap-6">
         {fields.map((field) => (
           <div key={field.name} className="flex flex-col">
-            <label htmlFor={field.name} className="font-semibold mb-1 text-black">
+            <label htmlFor={field.name} className="font-semibold mb-2 text-black">
               {field.label}
             </label>
             <input
@@ -154,10 +154,83 @@ export default function NuevoRegistro() {
           </div>
         ))}
 
-        {/* Bloque especial para "¿Se añadieron nutrientes?" */}
+        {/* Cambio en Nivel de Agua: Ahora es un Slider */}
         <div className="flex flex-col">
-          <label className="font-semibold mb-1 text-black">¿Se añadieron nutrientes?</label>
-          <div className="flex gap-4 mb-2">
+          <label htmlFor="nivel_agua" className="font-semibold mb-2 text-black">
+            Nivel de agua
+          </label>
+          <div className="mt-2 text-center font-semibold mb-5 text-black">
+            {formData.nivel_agua}%
+          </div>
+          <input
+            type="range"
+            id="nivel_agua"
+            name="nivel_agua"
+            min="0"
+            max="100"
+            step="1"
+            value={formData.nivel_agua}
+            onChange={handleChange}
+            aria-label="Nivel de agua"
+            className="w-full mx-auto h-10 bg-gray-300 rounded-full appearance-none focus:outline-none ring-2 ring-zinc-900 custom-slider"
+          />
+        </div>
+
+
+        {/* Bloque especial para "¿Se detectaron plagas?" */}
+        <div className="flex flex-col">
+          <label className="font-semibold mb-2 text-black">¿Se detectaron plagas?</label>
+          <div className="flex flex-wrap gap-4 mb-2">
+            <button
+              type="button"
+              className={`py-2 px-4 rounded ${plagasDetectadas === true ? 'bg-green-500 text-white' : 'bg-gray-300'}`}
+              onClick={() => setPlagasDetectadas(true)}
+            >
+              Sí
+            </button>
+            <button
+              type="button"
+              className={`py-2 px-4 rounded ${plagasDetectadas === false ? 'bg-red-500 text-white' : 'bg-gray-300'}`}
+              onClick={() => setPlagasDetectadas(false)}
+            >
+              No
+            </button>
+          </div>
+
+          {plagasDetectadas && (
+            <input
+              type="text"
+              name="plagas"
+              id="plagas"
+              value={formData.plagas}
+              onChange={handleChange}
+              placeholder="Describe las plagas detectadas"
+              className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
+          )}
+        </div>
+
+        {/* Sección Flujo del sistema */}
+        <div className="flex flex-col">
+          <label className="font-semibold mb-2 text-black">Flujo del sistema</label>
+          <div className="flex flex-wrap gap-2">
+            {['Excesivo', 'Óptimo', 'Bueno', 'Intermitente', 'Fluctuante', 'Insuficiente'].map((option) => (
+              <button
+                key={option}
+                type="button"
+                className={`py-2 px-4 rounded ${flujoSistema === option ? 'bg-green-500 text-white' : 'bg-gray-300'}`}
+                onClick={() => setFlujoSistema(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Bloques de Nutrientes y Mantenimiento */}
+        <div className="flex flex-col">
+          <label className="font-semibold mb-2 text-black">¿Se añadieron nutrientes?</label>
+          <div className="flex flex-wrap gap-4 mb-2">
             <button
               type="button"
               className={`py-2 px-4 rounded ${nutrientesAñadidos === true ? 'bg-green-500 text-white' : 'bg-gray-300'}`}
@@ -187,10 +260,9 @@ export default function NuevoRegistro() {
           )}
         </div>
 
-        {/* Bloque especial para "¿Se realizó mantenimiento?" */}
         <div className="flex flex-col">
-          <label className="font-semibold mb-1 text-black">¿Se realizó mantenimiento?</label>
-          <div className="flex gap-4 mb-2">
+          <label className="font-semibold mb-2 text-black">¿Se realizó mantenimiento?</label>
+          <div className="flex flex-wrap gap-4 mb-2">
             <button
               type="button"
               className={`py-2 px-4 rounded ${mantenimientoRealizado === true ? 'bg-green-500 text-white' : 'bg-gray-300'}`}
@@ -220,9 +292,9 @@ export default function NuevoRegistro() {
           )}
         </div>
 
-        {/* Bloque para las "Anotaciones" */}
+        {/* Sección Anotaciones */}
         <div className="flex flex-col">
-          <label htmlFor="anotaciones" className="font-semibold mb-1 text-black">
+          <label htmlFor="anotaciones" className="font-semibold mb-2 text-black">
             Anotaciones
           </label>
           <textarea
@@ -237,7 +309,7 @@ export default function NuevoRegistro() {
 
         <button
           type="submit"
-          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-6"
         >
           Guardar Registro
         </button>

@@ -29,3 +29,21 @@ input[type='number'] {
   appearance: textfield;
 }
 
+
+
+
+/* Estilos para el thumb del slider */
+.custom-slider::-webkit-slider-thumb {
+  height: 38px;  /* Ajusta la altura */
+  width: 38px;   /* Ajusta el ancho */
+  background-color: rgb(42, 42, 42); /* Cambia el color */
+  border-radius: 50%; /* Hace el thumb redondeado */
+  cursor: pointer;
+  appearance: none;
+  transition: background-color 0.3s ease;
+}
+
+
+
+
+
