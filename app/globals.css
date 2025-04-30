@@ -21,21 +21,53 @@ input[type='number'] {
   appearance: textfield;
 }
 
+/* Estilo base para el botón "hoy" */
+.fc-today-button {
+  background-color: #4CAF50 !important; /* Un color de fondo verde */
+  color: white !important;             /* Texto blanco */
+  border: none !important;              /* Sin borde */
+  border-radius: 5px !important;        /* Bordes redondeados */
+  padding: 8px 15px !important;       /* Ajustar el padding */
+  font-weight: bold !important;         /* Texto en negrita */
+  opacity: 1 !important;              /* Asegurarse de que no esté translúcido por defecto */
+}
 
-
-
-/* Estilos para el thumb del slider */
-.custom-slider::-webkit-slider-thumb {
-  height: 38px;  /* Ajusta la altura */
-  width: 38px;   /* Ajusta el ancho */
-  background-color: rgb(42, 42, 42); /* Cambia el color */
-  border-radius: 50%; /* Hace el thumb redondeado */
+/* Estilo para cuando el cursor pasa por encima (hover) */
+.fc-today-button:hover {
+  background-color: #45a049 !important; /* Un verde un poco más oscuro */
   cursor: pointer;
-  appearance: none;
-  transition: background-color 0.3s ease;
 }
 
 
 
+/* Estilo para cuando se hace clic (active) */
+.fc-today-button:not(:disabled):active {
+  background-color: #3e8e41 !important; /* Un verde aún más oscuro */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15) !important; /* Sombra interior */
+}
 
 
+/* Estilo para el título del calendario */
+.fc-toolbar-title {
+  text-transform: capitalize;
+  font-size: 1.8em; /* Hacer la fuente más grande */
+  font-weight: bold; /* Poner en negrita */
+  /* Otros estilos CSS que necesites */
+}
+
+
+/* Estilo para resaltar el fondo del día actual en el calendario */
+.fc-day-today {
+  background-color: #fa9e9e !important; /* Ejemplo: un azul claro */
+  /* Elige el color que prefieras usando códigos hexadecimales, rgb() o nombres de color */
+}
+
+/* Opcional: Si el color de fondo hace que el número del día sea difícil de leer,
+   puedes ajustar también el color del texto del número dentro de la celda de hoy.
+   La clase para el número suele ser .fc-daygrid-day-number o similar
+   (confírmalo con las herramientas de desarrollador si es necesario). */
+.fc-daygrid-day-number {
+  color: #000 !important; 
+  font-weight: bold !important;
+  font-size: 20px;
+}

@@ -6,6 +6,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
+import esLocale from '@fullcalendar/core/locales/es'; // <-- 1. Importa el locale específico
+
 
 interface EventoCultivo {
   id: number;
@@ -66,7 +68,7 @@ export default function CalendarioPage() {
   };
 
   return (
-    <div className="p-4 bg-white text-black rounded-xl shadow-md">
+    <div className="p-4  text-black flex flex-col items-center">
       <h1 className="text-2xl font-bold text-center mb-4 text-zinc-900">Calendario de Cultivo</h1>
       <div className="mb-4">
         <button
@@ -77,13 +79,23 @@ export default function CalendarioPage() {
         </button>
       </div>
       <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        locale="es"
-        height="auto"
-        events={eventos}
-        contentHeight="auto"
-      />
+      plugins={[dayGridPlugin, interactionPlugin]}
+      initialView="dayGridMonth"
+      locale="es"
+      locales={[esLocale]}  // <-- 2. Proporciona aquí los datos del locale importado
+      firstDay={1} // <-- Añade esta línea para empezar en lunes
+      height="auto"
+      events={eventos}
+      contentHeight="auto"
+
+           // --- Aquí añades el formato del título ---
+           titleFormat={{
+            month: 'long', // 'numeric', '2-digit', 'long', 'short', 'narrow'
+            year: 'numeric', // 'numeric', '2-digit'
+            // day: 'numeric', // 'numeric', '2-digit' (útil en vistas de semana/día)
+            // weekday: 'long' // 'long', 'short', 'narrow' (útil en vistas de semana/día)
+          }}
+    />
     </div>
   );
 }
