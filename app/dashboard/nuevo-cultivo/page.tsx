@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import toast from 'react-hot-toast';
 
 export default function NuevoCultivoPage() {
   const supabase = createClientComponentClient();
@@ -16,7 +17,7 @@ export default function NuevoCultivoPage() {
     e.preventDefault();
 
     // Crear cultivo
-    const { data: cultivo, error: cultivoError } = await supabase
+    const { error: cultivoError } = await supabase
       .from('cultivos')
       .insert([
         {
@@ -24,31 +25,14 @@ export default function NuevoCultivoPage() {
           descripcion,
           fecha_siembra: fechaSiembra,
         },
-      ])
-      .select()
-      .single();
+      ]);
 
     if (cultivoError) {
-      alert('Error al crear cultivo: ' + cultivoError.message);
+      toast.error('Error al crear cultivo: ' + cultivoError.message);
       return;
     }
 
-    // Crear evento de "Siembra" automáticamente
-    const { error: eventoError } = await supabase.from('eventos_cultivo').insert([
-      {
-        etapa: 'Siembra',
-        fecha_inicio: fechaSiembra,
-        cultivo_id: cultivo.id,
-        color: '#4ade80', // verde
-        titulo: `${nombre} - Siembra`,
-      },
-    ]);
-
-    if (eventoError) {
-      alert('Cultivo creado, pero error al crear evento: ' + eventoError.message);
-    } else {
-      alert('Cultivo y evento de siembra creados correctamente');
-    }
+    toast.success('Cultivo creado correctamente');
 
     router.push('/dashboard');
   };
@@ -77,6 +61,15 @@ export default function NuevoCultivoPage() {
             className="w-xs px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
           />
         </div>
+        <div>
+          <label className="block text-sm font-medium text-zinc-800">Cantidad</label>
+          <input
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            required
+            className="w-xs px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
 
         <div>
           <label className="block text-sm font-medium text-zinc-800">Fecha de siembra</label>
@@ -85,15 +78,6 @@ export default function NuevoCultivoPage() {
             value={fechaSiembra}
             onChange={(e) => setFechaSiembra(e.target.value)}
             required
-            className="w-xs px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-zinc-800">Descripción (opcional)</label>
-          <textarea
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
             className="w-xs px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
           />
         </div>
@@ -108,4 +92,6 @@ export default function NuevoCultivoPage() {
       </form>
     </div>
   );
+  
 }
+

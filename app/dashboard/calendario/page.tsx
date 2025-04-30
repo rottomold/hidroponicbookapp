@@ -45,7 +45,7 @@ export default function CalendarioPage() {
         id: cultivo.id.toString(),
         title: `${cultivo.nombre} - ${cultivo.descripcion}`,
         start: cultivo.fecha_siembra,
-        color: '#4ade80', // puedes cambiar esto si quieres colores distintos
+        color: '#4ade80', // color verde fijo
       }));
 
       setEventos(eventosFormateados);
@@ -83,6 +83,15 @@ export default function CalendarioPage() {
           year: 'numeric',
         }}
       />
+      <style jsx global>{`
+        /* Estilo para que el texto dentro de los eventos sea negro */
+        .fc-event-title, 
+        .fc-event-time, 
+        .fc-event .fc-event-main {
+          color: black !important;
+        }
+      `}</style>
+
     </div>
   );
 }
