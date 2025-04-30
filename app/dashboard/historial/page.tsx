@@ -22,7 +22,6 @@ interface Registro {
 export default function HistorialPage() {
   const router = useRouter();
   const supabase = createClientComponentClient();
-
   const [registros, setRegistros] = useState<Registro[]>([]);
 
   // Obtener los registros de la base de datos

@@ -1,12 +1,10 @@
 'use client';
 
-
 import { useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-// 👆 Quitamos el import del tipo Database
 
 export default function LoginPage() {
-  const supabase = createClientComponentClient(); // 👈 Sin tipo <Database>
+  const supabase = createClientComponentClient(); // Crear el cliente de Supabase
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -25,17 +23,19 @@ export default function LoginPage() {
     setLoading(false);
 
     if (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(error.message); // Mostrar mensaje de error
     } else {
-      console.log('Usuario logueado:', data.user);
-      window.location.href = '/dashboard';
+      console.log('Usuario logueado:', data?.user);
+      window.location.href = '/dashboard'; // Redirigir al dashboard
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="p-8 w-80">
-        <h1 className="text-2xl font-bold mb-6 text-center text-zinc-900 uppercase">Hidroponic Book</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center text-zinc-900 uppercase">
+          Hidroponic Book
+        </h1>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>

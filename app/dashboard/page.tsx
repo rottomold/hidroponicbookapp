@@ -82,45 +82,45 @@ export default function DashboardPage() {
       <div className="space-y-4 w-full max-w-xs">
         <button
           onClick={handleNuevoRegistro}
-          className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded font-bold"
-        >
+          className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded font-bold">
           Nuevo Registro
         </button>
 
         <button
           onClick={() => router.push('/dashboard/historial')}
-          className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded font-bold"
-        >
+          className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded font-bold">
           Ver Historial
         </button>
 
         {/* Botón para redirigir a la página de gráfico de pH */}
         <button
           onClick={() => router.push('/dashboard/grafico-ph')}
-          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded"
-        >
+          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded">
           Gráfico pH
         </button>
 
         <button
           onClick={() => router.push('/dashboard/grafico-ec')}
-          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded"
-        >
+          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded">
           Gráfico EC
+        </button>
+
+        <button
+          onClick={() => router.push('/dashboard/calendario')}
+          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded">
+          Calendario de Cultivo
         </button>
 
         {/* Botón de exportación a CSV */}
         <button
           onClick={handleExportCSV}
-          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded"
-        >
+          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded">
           Exportar a CSV
         </button>
 
         <button
           onClick={handleLogout}
-          className="w-full bg-zinc-800 hover:bg-zinc-900 text-white py-2 rounded"
-        >
+          className="w-full bg-zinc-800 hover:bg-zinc-900 text-white py-2 rounded">
           Cerrar Sesión
         </button>
       </div>
