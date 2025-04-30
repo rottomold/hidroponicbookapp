@@ -98,8 +98,8 @@ export default function GraficoPhPage() {
           onClick={handleGoBack}
           className="w-xs bg-zinc-800 hover:bg-zinc-900 font-bold text-white py-2 rounded"
         >
-          Volver
-        </button>
+          Volver al Dashboard
+          </button>
       </div>
     </div>
   );

@@ -50,8 +50,7 @@ export default function HistorialPage() {
 
       <button
         onClick={handleBackToDashboard}
-        className="w-xs bg-zinc-800 hover:bg-zinc-900 text-white py-2 rounded mb-4"
-      >
+        className="w-xs bg-zinc-800 hover:bg-zinc-900 text-white py-2 rounded mb-4">
         Volver al Dashboard
       </button>
 

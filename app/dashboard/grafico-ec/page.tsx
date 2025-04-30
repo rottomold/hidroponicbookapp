@@ -94,14 +94,13 @@ export default function GraficoEcPage() {
 
       {/* Botón de volver debajo del gráfico */}
       <div className="mt-8">
-      <div className="mt-8">
-        <button
-          onClick={handleGoBack}
-          className="w-xs bg-zinc-800 hover:bg-zinc-900 font-bold text-white py-2 rounded"
-        >
-          Volver
-        </button>
-      </div>
+        <div className="mt-8">
+          <button
+            onClick={handleGoBack}
+            className="w-xs bg-zinc-800 hover:bg-zinc-900 font-bold text-white py-2 rounded">
+          Volver al Dashboard
+          </button>
+        </div>
       </div>
     </div>
   );

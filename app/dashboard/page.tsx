@@ -106,6 +106,12 @@ export default function DashboardPage() {
         </button>
 
         <button
+          onClick={() => router.push('/dashboard/nuevo-cultivo')}
+          className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded">
+          Nuevo Cultivo
+        </button>
+
+        <button
           onClick={() => router.push('/dashboard/calendario')}
           className="w-full bg-green-700 hover:bg-green-800 font-bold text-white py-2 rounded">
           Calendario de Cultivo
